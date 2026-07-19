@@ -6,17 +6,10 @@ const photoTitle = document.getElementById("photoTitle");
 
 const currentStage = sessionStorage.getItem("currentStage");
 
-const stageNames = {
-    engagement: "💍 الخطبة",
-    meeting: "👀 الشوفة",
-    contract: "🤍 عقد القران",
-    shabka: "💎 الشبكة",
-    wedding: "🎊 ليلة الزواج",
-    honeymoon: "✈️ شهر العسل"
-};
+const stages = JSON.parse(localStorage.getItem("myStages")) || [];
 
-photoTitle.textContent = stageNames[currentStage] + " - الصورة";
-
+photoTitle.textContent =
+    stages[currentStage].name + " - الصورة";
 let selectedImage = "";
 
 // عرض الصورة المحفوظة

@@ -90,7 +90,6 @@ dateInput.addEventListener("change", () => {
 });
 
 const closeSheet = document.getElementById("closeSheet");
-const overlay = document.getElementById("overlay");
 
 closeSheet.addEventListener("click", closeBottomSheet);
 overlay.addEventListener("click", closeBottomSheet);

@@ -32,9 +32,7 @@ stages.forEach(stage => {
         dateInput.value = data[currentStage] || "";
 
         // إعادة واجهة الذكرى لوضعها الطبيعي
-        memoryEditor.hidden = true;
         choosePhotos.hidden = false;
-        chooseMemory.hidden = false;
 
         bottomSheet.classList.add("show");
         overlay.classList.add("show");

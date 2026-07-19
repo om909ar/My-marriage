@@ -39,6 +39,8 @@ function closeBottomSheet(){
 
 chooseDate.addEventListener("click", () => {
 
-    datePicker.click();
+    datePicker.style.display = "block";
+
+    datePicker.focus();
 
 });

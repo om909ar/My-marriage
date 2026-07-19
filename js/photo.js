@@ -83,3 +83,9 @@ backButton.addEventListener("click", () => {
     window.location.href = "index.html";
 
 });
+
+photoPreview.addEventListener("click", () => {
+
+    photoPreview.classList.toggle("fullscreen");
+
+});

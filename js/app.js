@@ -9,10 +9,12 @@ const overlay = document.getElementById("overlay");
 const closeSheet = document.getElementById("closeSheet");
 const sheetTitle = document.getElementById("sheetTitle");
 
-// عرض التواريخ المحفوظة عند تشغيل التطبيق
+const choosePhotos = document.getElementById("choosePhotos");
+
+// عرض التواريخ
 updateStageDates();
 
-// فتح الـ Bottom Sheet
+// فتح القائمة
 stages.forEach(stage => {
 
     stage.addEventListener("click", () => {
@@ -22,8 +24,8 @@ stages.forEach(stage => {
         sheetTitle.textContent =
             stage.querySelector("span").textContent;
 
-        // عرض التاريخ الحالي إن وجد
         const data = getStages();
+
         dateInput.value = data[currentStage] || "";
 
         bottomSheet.classList.add("show");
@@ -33,7 +35,7 @@ stages.forEach(stage => {
 
 });
 
-// حفظ التاريخ عند تغييره
+// حفظ التاريخ
 dateInput.addEventListener("change", () => {
 
     const data = getStages();
@@ -46,7 +48,15 @@ dateInput.addEventListener("change", () => {
 
 });
 
-// إغلاق النافذة
+// فتح صفحة الصورة
+choosePhotos.addEventListener("click", () => {
+
+    sessionStorage.setItem("currentStage", currentStage);
+
+    window.location.href = "photo.html";
+
+});
+
 closeSheet.addEventListener("click", closeBottomSheet);
 overlay.addEventListener("click", closeBottomSheet);
 

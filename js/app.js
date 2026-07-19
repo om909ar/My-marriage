@@ -100,8 +100,6 @@ function closeBottomSheet() {
     overlay.classList.remove("show");
 
     // إعادة الواجهة للوضع الطبيعي
-    memoryEditor.hidden = true;
     choosePhotos.hidden = false;
-    chooseMemory.hidden = false;
 
 }

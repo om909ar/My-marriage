@@ -11,7 +11,7 @@ const sheetTitle = document.getElementById("sheetTitle");
 const choosePhotos = document.getElementById("choosePhotos");
 
 // عرض التواريخ عند فتح التطبيق
-updateStageDates();
+// updateStageDates();
 
 // الضغط على أي مرحلة
 stages.forEach(stage => {

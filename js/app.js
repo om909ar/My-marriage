@@ -30,9 +30,13 @@ function loadStages() {
         stage.dataset.index = index;
 
         stage.innerHTML = `
-            <span>${item.name}</span>
-            <span>${item.date || "—"}</span>
-        `;
+    <span>${item.name}</span>
+    <span>${
+        item.date
+            ? item.date.split("-").reverse().join(" / ")
+            : "—"
+    }</span>
+`;
 
 stage.addEventListener("click", () => {
 

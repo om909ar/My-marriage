@@ -15,6 +15,7 @@ const sheetTitle = document.getElementById("sheetTitle");
 stages.forEach(stage => {
 
     stage.addEventListener("click", () => {
+        currentStage = stage.id;
 
         sheetTitle.textContent =
             stage.querySelector("span").textContent;

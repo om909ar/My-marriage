@@ -76,19 +76,28 @@ const stagesList = document.getElementById("stagesList");
 
 addStage.addEventListener("click", () => {
 
-    const stage = document.createElement("div");
-
-    stage.className = "stage";
-
     const stageName = prompt("اكتب اسم المرحلة");
 
 if (!stageName) return;
+
+const stage = document.createElement("div");
+
+stage.className = "stage";
 
 stage.innerHTML = `
     <span>${stageName}</span>
     <span>—</span>
 `;
 
-    stagesList.appendChild(stage);
+const allStages = getStages();
 
+allStages.push({
+    name: stageName,
+    date: "",
+    photo: ""
+});
+
+saveStages(allStages);
+
+stagesList.appendChild(stage);
 });

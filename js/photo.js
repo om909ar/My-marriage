@@ -2,12 +2,10 @@ const photoInput = document.getElementById("photoInput");
 const photoPreview = document.getElementById("photoPreview");
 const noPhoto = document.getElementById("noPhoto");
 const savePhoto = document.getElementById("savePhoto");
-const backButton = document.getElementById("backButton");
 const photoTitle = document.getElementById("photoTitle");
 
 const currentStage = sessionStorage.getItem("currentStage");
 
-// أسماء المراحل
 const stageNames = {
     engagement: "💍 الخطبة",
     meeting: "👀 الشوفة",
@@ -21,13 +19,17 @@ photoTitle.textContent = stageNames[currentStage] + " - الصورة";
 
 let selectedImage = "";
 
-// عرض الصورة المحفوظة إن وجدت
+// عرض الصورة المحفوظة
 const savedImage = localStorage.getItem(currentStage + "_photo");
 
 if (savedImage) {
 
+    selectedImage = savedImage;
+
     photoPreview.src = savedImage;
+
     photoPreview.hidden = false;
+
     noPhoto.hidden = true;
 
 }
@@ -43,20 +45,12 @@ photoInput.addEventListener("change", () => {
 
     reader.onload = function (e) {
 
-    selectedImage = e.target.result;
-
-    photoPreview.src = selectedImage;
-
-    photoPreview.style.display = "block";
-
-    noPhoto.style.display = "none";
-
-};
-
         selectedImage = e.target.result;
 
         photoPreview.src = selectedImage;
+
         photoPreview.hidden = false;
+
         noPhoto.hidden = true;
 
     };
@@ -68,20 +62,16 @@ photoInput.addEventListener("change", () => {
 // حفظ الصورة
 savePhoto.addEventListener("click", () => {
 
-    if (!selectedImage) return;
+    if (!selectedImage) {
 
-    localStorage.setItem(
-        currentStage + "_photo",
-        selectedImage
-    );
+        alert("اختر صورة أولاً");
+
+        return;
+
+    }
+
+    localStorage.setItem(currentStage + "_photo", selectedImage);
 
     alert("تم حفظ الصورة ✅");
-
-});
-
-// رجوع
-backButton.addEventListener("click", () => {
-
-    window.location.href = "index.html";
 
 });

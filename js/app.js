@@ -38,7 +38,7 @@ function closeBottomSheet(){
 
 }
 
-chooseDate.addEventListener("change", () => {
+dateInput.addEventListener("change", () => {
 
     saveStageDate(currentStage, dateInput.value);
 

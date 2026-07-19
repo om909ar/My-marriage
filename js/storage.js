@@ -1,11 +1,29 @@
-function saveStageDate(stage, date) {
+const STORAGE_KEY = "myMarriageStages";
 
-    localStorage.setItem(stage, date);
+function getStages() {
+
+    const data = localStorage.getItem(STORAGE_KEY);
+
+    if (data) {
+        return JSON.parse(data);
+    }
+
+    return {
+        engagement: "",
+        meeting: "",
+        contract: "",
+        shabka: "",
+        wedding: "",
+        honeymoon: ""
+    };
 
 }
 
-function getStageDate(stage) {
+function saveStages(stages) {
 
-    return localStorage.getItem(stage) || "—";
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(stages)
+    );
 
 }

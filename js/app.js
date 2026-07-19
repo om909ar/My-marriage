@@ -15,8 +15,6 @@ const choosePhotos = document.getElementById("choosePhotos");
 // عرض التواريخ
 updateStageDates();
 
-});
-
 // فتح الـ Bottom Sheet
 stages.forEach(stage => {
 

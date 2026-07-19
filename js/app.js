@@ -86,7 +86,15 @@ chooseMemory.addEventListener("click", () => {
 
     const memory = localStorage.getItem(currentStage + "_memory");
 
-    memoryInput.value = memory || "";
+memoryInput.value = memory || "";
+
+let preview = memory || "لا توجد ذكرى";
+
+if (preview.length > 25) {
+    preview = preview.substring(0, 25) + "...";
+}
+
+memoryPreview.textContent = preview;
 
 });
 

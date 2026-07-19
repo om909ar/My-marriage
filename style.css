@@ -300,3 +300,82 @@ color:white;
 
 }
 
+/* ===========================
+   صفحة الصورة
+=========================== */
+
+.photo-container {
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    border: 2px dashed #d1d5db;
+    border-radius: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    margin: 24px 0;
+
+    background: #fafafa;
+
+}
+
+.photo-container img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+#noPhoto {
+
+    color: #888;
+    font-size: 15px;
+
+}
+
+#photoInput {
+
+    width: 100%;
+    margin-bottom: 16px;
+
+}
+
+#savePhoto,
+#backButton {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 15px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    margin-bottom: 12px;
+
+}
+
+#savePhoto {
+
+    background: #007aff;
+    color: white;
+
+}
+
+#backButton {
+
+    background: #f2f2f7;
+
+}
+

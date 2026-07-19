@@ -81,3 +81,16 @@ dateInput.addEventListener("change", () => {
     loadStages();
 
 });
+
+const closeSheet = document.getElementById("closeSheet");
+const overlay = document.getElementById("overlay");
+
+closeSheet.addEventListener("click", closeBottomSheet);
+overlay.addEventListener("click", closeBottomSheet);
+
+function closeBottomSheet() {
+
+    bottomSheet.classList.remove("show");
+    overlay.classList.remove("show");
+
+}

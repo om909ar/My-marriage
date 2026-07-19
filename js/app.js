@@ -1,3 +1,5 @@
+const saveDate = document.getElementById("saveDate");
+
 const dateModal = document.getElementById("dateModal");
 const cancelDate = document.getElementById("cancelDate");
 
@@ -52,5 +54,15 @@ cancelDate.addEventListener("click", () => {
     dateModal.classList.remove("show");
 
     bottomSheet.classList.add("show");
+
+});
+
+saveDate.addEventListener("click", () => {
+
+    dateModal.classList.remove("show");
+
+    bottomSheet.classList.remove("show");
+
+    overlay.classList.remove("show");
 
 });

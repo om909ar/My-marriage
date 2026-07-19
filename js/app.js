@@ -36,3 +36,9 @@ function closeBottomSheet(){
     overlay.classList.remove("show");
 
 }
+
+chooseDate.addEventListener("click", () => {
+
+    datePicker.click();
+
+});

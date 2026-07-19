@@ -1,7 +1,3 @@
-const memoryEditor = document.getElementById("memoryEditor");
-const chooseMemory = document.getElementById("chooseMemory");
-const memoryInput = document.getElementById("memoryInput");
-const saveMemory = document.getElementById("saveMemory");
 
 const dateInput = document.getElementById("dateInput");
 

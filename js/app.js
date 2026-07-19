@@ -1,7 +1,3 @@
-const saveDate = document.getElementById("saveDate");
-
-const dateModal = document.getElementById("dateModal");
-const cancelDate = document.getElementById("cancelDate");
 
 const chooseDate = document.getElementById("chooseDate");
 
@@ -40,29 +36,3 @@ function closeBottomSheet(){
     overlay.classList.remove("show");
 
 }
-
-chooseDate.addEventListener("click", () => {
-
-    bottomSheet.classList.remove("show");
-
-    dateModal.classList.add("show");
-
-});
-
-cancelDate.addEventListener("click", () => {
-
-    dateModal.classList.remove("show");
-
-    bottomSheet.classList.add("show");
-
-});
-
-saveDate.addEventListener("click", () => {
-
-    dateModal.classList.remove("show");
-
-    bottomSheet.classList.remove("show");
-
-    overlay.classList.remove("show");
-
-});

@@ -85,7 +85,7 @@ addStage.addEventListener("click", () => {
 if (!stageName) return;
 
 stage.innerHTML = `
-    <span>📝 ${stageName}</span>
+    <span>${stageName}</span>
     <span>—</span>
 `;
 

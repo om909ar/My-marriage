@@ -43,6 +43,16 @@ photoInput.addEventListener("change", () => {
 
     reader.onload = function (e) {
 
+    selectedImage = e.target.result;
+
+    photoPreview.src = selectedImage;
+
+    photoPreview.style.display = "block";
+
+    noPhoto.style.display = "none";
+
+};
+
         selectedImage = e.target.result;
 
         photoPreview.src = selectedImage;

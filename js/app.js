@@ -45,6 +45,32 @@ stages.forEach(stage => {
 
 });
 
+// فتح الـ Bottom Sheet
+stages.forEach(stage => {
+
+    stage.addEventListener("click", () => {
+
+        currentStage = stage.id;
+
+        sheetTitle.textContent =
+            stage.querySelector("span").textContent;
+
+        const data = getStages();
+
+        dateInput.value = data[currentStage] || "";
+
+        // إعادة واجهة الذكرى لوضعها الطبيعي
+        memoryEditor.hidden = true;
+        choosePhotos.hidden = false;
+        chooseMemory.hidden = false;
+
+        bottomSheet.classList.add("show");
+        overlay.classList.add("show");
+
+    });
+
+});
+
 // حفظ التاريخ
 dateInput.addEventListener("change", () => {
 

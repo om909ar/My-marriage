@@ -70,3 +70,21 @@ function closeBottomSheet() {
     overlay.classList.remove("show");
 
 }
+
+const addStage = document.getElementById("addStage");
+const stagesList = document.getElementById("stagesList");
+
+addStage.addEventListener("click", () => {
+
+    const stage = document.createElement("div");
+
+    stage.className = "stage";
+
+    stage.innerHTML = `
+        <span>📝 مرحلة جديدة</span>
+        <span>—</span>
+    `;
+
+    stagesList.appendChild(stage);
+
+});

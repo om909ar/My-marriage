@@ -1,3 +1,6 @@
+const dateModal = document.getElementById("dateModal");
+const cancelDate = document.getElementById("cancelDate");
+
 const chooseDate = document.getElementById("chooseDate");
 
 let currentStage = "";

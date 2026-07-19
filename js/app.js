@@ -95,6 +95,11 @@ saveMemory.addEventListener("click", () => {
         memoryInput.value
     );
 
+    memoryEditor.hidden = true;
+
+    document.getElementById("choosePhotos").hidden = false;
+    document.getElementById("chooseMemory").hidden = false;
+
     alert("تم حفظ الذكرى ❤️");
 
 });

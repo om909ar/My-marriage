@@ -13,21 +13,21 @@ function updateStageDates() {
     const stages = getStages();
 
     document.getElementById("engagementDate").textContent =
-        stages.engagement || "—";
+        formatDate(stages.engagement);
 
     document.getElementById("meetingDate").textContent =
-        stages.meeting || "—";
+        formatDate(stages.meeting);
 
     document.getElementById("contractDate").textContent =
-        stages.contract || "—";
+        formatDate(stages.contract);
 
     document.getElementById("shabkaDate").textContent =
-        stages.shabka || "—";
+        formatDate(stages.shabka);
 
     document.getElementById("weddingDate").textContent =
-        stages.wedding || "—";
+        formatDate(stages.wedding);
 
     document.getElementById("honeymoonDate").textContent =
-        stages.honeymoon || "—";
+        formatDate(stages.honeymoon);
 
 }

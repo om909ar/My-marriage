@@ -89,36 +89,7 @@ choosePhotos.addEventListener("click", () => {
 
 });
 
-// فتح محرر الذكرى
-chooseMemory.addEventListener("click", () => {
-
-    choosePhotos.hidden = true;
-    chooseMemory.hidden = true;
-
-    memoryEditor.hidden = false;
-
-    const memory =
-        localStorage.getItem(currentStage + "_memory");
-
-    memoryInput.value = memory || "";
-
-});
-
-// حفظ الذكرى
-saveMemory.addEventListener("click", () => {
-
-    localStorage.setItem(
-        currentStage + "_memory",
-        memoryInput.value
-    );
-
-    memoryEditor.hidden = true;
-
-    choosePhotos.hidden = false;
-    chooseMemory.hidden = false;
-
-});
-
+// حفظ 
 // إغلاق الـ Bottom Sheet
 closeSheet.addEventListener("click", closeBottomSheet);
 overlay.addEventListener("click", closeBottomSheet);

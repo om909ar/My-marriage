@@ -1,4 +1,3 @@
-const datePicker = document.getElementById("datePicker");
 const chooseDate = document.getElementById("chooseDate");
 
 let currentStage = "";
@@ -36,11 +35,3 @@ function closeBottomSheet(){
     overlay.classList.remove("show");
 
 }
-
-chooseDate.addEventListener("click", () => {
-
-    datePicker.style.display = "block";
-
-    datePicker.focus();
-
-});

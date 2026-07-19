@@ -15,28 +15,6 @@ const choosePhotos = document.getElementById("choosePhotos");
 // عرض التواريخ
 updateStageDates();
 
-// فتح الـ Bottom Sheet
-stages.forEach(stage => {
-
-    stage.addEventListener("click", () => {
-
-        currentStage = stage.id;
-
-        sheetTitle.textContent =
-            stage.querySelector("span").textContent;
-
-        const data = getStages();
-
-        dateInput.value = data[currentStage] || "";
-
-        // إعادة واجهة الذكرى لوضعها الطبيعي
-        choosePhotos.hidden = false;
-
-        bottomSheet.classList.add("show");
-        overlay.classList.add("show");
-
-    });
-
 });
 
 // فتح الـ Bottom Sheet

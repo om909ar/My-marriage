@@ -1,4 +1,3 @@
-
 const dateInput = document.getElementById("dateInput");
 
 let currentStage = "";
@@ -19,6 +18,15 @@ updateStageDates();
 stages.forEach(stage => {
 
     stage.addEventListener("click", () => {
+
+stage.addEventListener("click", () => {
+
+    alert("اشتغل");
+
+    currentStage = stage.id;
+
+    ...
+});
 
         currentStage = stage.id;
 

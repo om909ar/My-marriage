@@ -1,4 +1,4 @@
-const memoryPreview = document.getElementById("memoryPreview");
+
 
 const memoryEditor = document.getElementById("memoryEditor");
 

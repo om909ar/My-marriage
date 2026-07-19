@@ -1,3 +1,13 @@
+function formatDate(date) {
+
+    if (!date) return "—";
+
+    const parts = date.split("-");
+
+    return `${parts[2]} / ${parts[1]} / ${parts[0]}`;
+
+}
+
 function updateStageDates() {
 
     const stages = getStages();

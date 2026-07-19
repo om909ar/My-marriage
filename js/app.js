@@ -1,3 +1,8 @@
+const datePicker = document.getElementById("datePicker");
+const chooseDate = document.getElementById("chooseDate");
+
+let currentStage = "";
+
 const stages = document.querySelectorAll(".stage");
 
 const bottomSheet = document.getElementById("bottomSheet");

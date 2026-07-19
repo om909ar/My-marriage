@@ -101,3 +101,13 @@ function closeBottomSheet() {
     overlay.classList.remove("show");
 
 }
+
+choosePhotos.addEventListener("click", () => {
+
+    if (currentStage === null) return;
+
+    sessionStorage.setItem("currentStage", currentStage);
+
+    window.location.href = "photo.html";
+
+});

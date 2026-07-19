@@ -21,8 +21,6 @@ stages.forEach(stage => {
 
 stage.addEventListener("click", () => {
 
-    alert("اشتغل");
-
     currentStage = stage.id;
 
     ...

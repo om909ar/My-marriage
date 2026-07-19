@@ -124,5 +124,5 @@ allStages.push({
 
 saveStages(allStages);
 
-stagesList.appendChild(stage);
+loadStages();
 });

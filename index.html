@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💍 زواجي</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="زواجي">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- بطاقة مدة الزواج -->
+
+    <section class="marriage-card">
+
+        <h2>❤️ مدة الزواج</h2>
+
+        <div id="marriageCounter">
+            لم يبدأ الزواج بعد
+        </div>
+
+    </section>
+
+
+    <!-- المراحل -->
+
+    <section class="stages">
+
+        <div class="stage" id="engagement">
+            <span>💍 الخطبة</span>
+            <span>></span>
+        </div>
+
+        <div class="stage" id="meeting">
+            <span>👀 الشوفة</span>
+            <span>></span>
+        </div>
+
+        <div class="stage" id="contract">
+            <span>🤍 عقد القران</span>
+            <span>></span>
+        </div>
+
+        <div class="stage" id="home">
+            <span>🏠 تجهيز المنزل</span>
+            <span>></span>
+        </div>
+
+        <div class="stage" id="wedding">
+            <span>🎊 ليلة الزواج</span>
+            <span>></span>
+        </div>
+
+        <div class="stage" id="honeymoon">
+            <span>✈️ شهر العسل</span>
+            <span>></span>
+        </div>
+
+    </section>
+
+
+    <!-- إضافة مرحلة -->
+
+    <button id="addStage">
+        ➕ إضافة مرحلة
+    </button>
+
+</div>
+
+
+<script src="js/storage.js"></script>
+<script src="js/dates.js"></script>
+<script src="js/stages.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

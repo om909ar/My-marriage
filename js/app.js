@@ -1,3 +1,9 @@
+const chooseMemory = document.getElementById("chooseMemory");
+
+const memoryInput = document.getElementById("memoryInput");
+
+const saveMemory = document.getElementById("saveMemory");
+
 const dateInput = document.getElementById("dateInput");
 
 let currentStage = "";
@@ -66,3 +72,27 @@ function closeBottomSheet() {
     overlay.classList.remove("show");
 
 }
+
+chooseMemory.addEventListener("click", () => {
+
+    memoryInput.hidden = false;
+
+    saveMemory.hidden = false;
+
+    const memory =
+        localStorage.getItem(currentStage + "_memory");
+
+    memoryInput.value = memory || "";
+
+});
+
+saveMemory.addEventListener("click", () => {
+
+    localStorage.setItem(
+        currentStage + "_memory",
+        memoryInput.value
+    );
+
+    alert("تم حفظ الذكرى ❤️");
+
+});

@@ -1,3 +1,4 @@
+const dateInput = document.getElementById("dateInput");
 
 const chooseDate = document.getElementById("chooseDate");
 
@@ -36,3 +37,12 @@ function closeBottomSheet(){
     overlay.classList.remove("show");
 
 }
+
+chooseDate.addEventListener("change", () => {
+
+    saveStageDate(currentStage, dateInput.value);
+
+    document.getElementById(currentStage + "Date").textContent =
+        dateInput.value;
+
+});

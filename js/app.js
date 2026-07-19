@@ -71,6 +71,31 @@ function closeBottomSheet() {
 
 }
 
+loadStages();
+
+function loadStages() {
+
+    const allStages = getStages();
+
+    stagesList.innerHTML = "";
+
+    allStages.forEach(item => {
+
+        const stage = document.createElement("div");
+
+        stage.className = "stage";
+
+        stage.innerHTML = `
+            <span>${item.name}</span>
+            <span>${item.date || "—"}</span>
+        `;
+
+        stagesList.appendChild(stage);
+
+    });
+
+}
+
 const addStage = document.getElementById("addStage");
 const stagesList = document.getElementById("stagesList");
 

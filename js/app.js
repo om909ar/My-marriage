@@ -1,3 +1,5 @@
+const memoryEditor = document.getElementById("memoryEditor");
+
 const chooseMemory = document.getElementById("chooseMemory");
 
 const memoryInput = document.getElementById("memoryInput");
@@ -75,12 +77,12 @@ function closeBottomSheet() {
 
 chooseMemory.addEventListener("click", () => {
 
-    memoryInput.hidden = false;
+    document.getElementById("choosePhotos").hidden = true;
+    document.getElementById("chooseMemory").hidden = true;
 
-    saveMemory.hidden = false;
+    memoryEditor.hidden = false;
 
-    const memory =
-        localStorage.getItem(currentStage + "_memory");
+    const memory = localStorage.getItem(currentStage + "_memory");
 
     memoryInput.value = memory || "";
 

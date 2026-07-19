@@ -1,89 +1,26 @@
-const dateInput = document.getElementById("dateInput");
+const stagesList = document.getElementById("stagesList");
+const addStage = document.getElementById("addStage");
 
-let currentStage = "";
-
-const stages = document.querySelectorAll(".stage");
-
-const bottomSheet = document.getElementById("bottomSheet");
-const overlay = document.getElementById("overlay");
-const closeSheet = document.getElementById("closeSheet");
-const sheetTitle = document.getElementById("sheetTitle");
-const choosePhotos = document.getElementById("choosePhotos");
-
-// عرض التواريخ عند فتح التطبيق
-// updateStageDates();
-
-// الضغط على أي مرحلة
-stages.forEach(stage => {
-
-    stage.addEventListener("click", () => {
-
-        currentStage = stage.id;
-
-        sheetTitle.textContent =
-            stage.querySelector("span").textContent;
-
-        const data = getStages();
-
-        dateInput.value = data[currentStage] || "";
-
-        bottomSheet.classList.add("show");
-        overlay.classList.add("show");
-
-    });
-
-});
-
-// حفظ التاريخ
-dateInput.addEventListener("change", () => {
-
-    if (!currentStage) return;
-
-    const data = getStages();
-
-    data[currentStage] = dateInput.value;
-
-    saveStages(data);
-
-    updateStageDates();
-
-});
-
-// فتح صفحة الصورة
-choosePhotos.addEventListener("click", () => {
-
-    if (!currentStage) return;
-
-    sessionStorage.setItem("currentStage", currentStage);
-
-    window.location.href = "photo.html";
-
-});
-
-// إغلاق النافذة
-closeSheet.addEventListener("click", closeBottomSheet);
-overlay.addEventListener("click", closeBottomSheet);
-
-function closeBottomSheet() {
-
-    bottomSheet.classList.remove("show");
-    overlay.classList.remove("show");
-
-}
-
+// عرض المراحل المحفوظة
 loadStages();
+
+// =====================
+// تحميل المراحل
+// =====================
 
 function loadStages() {
 
-    const allStages = getStages();
-
     stagesList.innerHTML = "";
 
-    allStages.forEach(item => {
+    const stages = getStages();
+
+    stages.forEach((item, index) => {
 
         const stage = document.createElement("div");
 
         stage.className = "stage";
+
+        stage.dataset.index = index;
 
         stage.innerHTML = `
             <span>${item.name}</span>
@@ -96,33 +33,26 @@ function loadStages() {
 
 }
 
-const addStage = document.getElementById("addStage");
-const stagesList = document.getElementById("stagesList");
+// =====================
+// إضافة مرحلة
+// =====================
 
 addStage.addEventListener("click", () => {
 
     const stageName = prompt("اكتب اسم المرحلة");
 
-if (!stageName) return;
+    if (!stageName) return;
 
-const stage = document.createElement("div");
+    const stages = getStages();
 
-stage.className = "stage";
+    stages.push({
+        name: stageName,
+        date: "",
+        photo: ""
+    });
 
-stage.innerHTML = `
-    <span>${stageName}</span>
-    <span>—</span>
-`;
+    saveStages(stages);
 
-const allStages = getStages();
+    loadStages();
 
-allStages.push({
-    name: stageName,
-    date: "",
-    photo: ""
-});
-
-saveStages(allStages);
-
-loadStages();
 });

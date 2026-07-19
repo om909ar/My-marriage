@@ -27,6 +27,17 @@ function loadStages() {
             <span>${item.date || "—"}</span>
         `;
 
+stage.addEventListener("click", () => {
+
+    currentStage = index;
+
+    sheetTitle.textContent = item.name;
+
+    bottomSheet.classList.add("show");
+    overlay.classList.add("show");
+
+});
+
         stagesList.appendChild(stage);
 
     });

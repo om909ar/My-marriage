@@ -115,20 +115,6 @@ saveMemory.addEventListener("click", () => {
         memoryInput.value
     );
 
-    let preview = memoryInput.value.trim();
-
-    if (preview === "") {
-
-        preview = "لا توجد ذكرى";
-
-    } else if (preview.length > 25) {
-
-        preview = preview.substring(0, 25) + "...";
-
-    }
-
-    memoryPreview.textContent = preview;
-
     memoryEditor.hidden = true;
 
     document.getElementById("choosePhotos").hidden = false;

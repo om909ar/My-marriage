@@ -80,10 +80,14 @@ addStage.addEventListener("click", () => {
 
     stage.className = "stage";
 
-    stage.innerHTML = `
-        <span>📝 مرحلة جديدة</span>
-        <span>—</span>
-    `;
+    const stageName = prompt("اكتب اسم المرحلة");
+
+if (!stageName) return;
+
+stage.innerHTML = `
+    <span>📝 ${stageName}</span>
+    <span>—</span>
+`;
 
     stagesList.appendChild(stage);
 

@@ -1,6 +1,6 @@
 const stagesList = document.getElementById("stagesList");
 const addStage = document.getElementById("addStage");
-
+const dateInput = document.getElementById("dateInput");
 // عرض المراحل المحفوظة
 loadStages();
 
@@ -30,6 +30,8 @@ function loadStages() {
 stage.addEventListener("click", () => {
 
     currentStage = index;
+
+dateInput.value = item.date || "";
 
     sheetTitle.textContent = item.name;
 
@@ -61,6 +63,18 @@ addStage.addEventListener("click", () => {
         date: "",
         photo: ""
     });
+
+    saveStages(stages);
+
+    loadStages();
+
+});
+
+dateInput.addEventListener("change", () => {
+
+    const stages = getStages();
+
+    stages[currentStage].date = dateInput.value;
 
     saveStages(stages);
 

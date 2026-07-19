@@ -1,11 +1,6 @@
-
-
 const memoryEditor = document.getElementById("memoryEditor");
-
 const chooseMemory = document.getElementById("chooseMemory");
-
 const memoryInput = document.getElementById("memoryInput");
-
 const saveMemory = document.getElementById("saveMemory");
 
 const dateInput = document.getElementById("dateInput");
@@ -24,10 +19,12 @@ const choosePhotos = document.getElementById("choosePhotos");
 // عرض التواريخ
 updateStageDates();
 
-// فتح القائمة
+// فتح الـ Bottom Sheet
+stages.forEach(stage => {
+
+    stage.addEventListener("click", () => {
 
         currentStage = stage.id;
-        
 
         sheetTitle.textContent =
             stage.querySelector("span").textContent;
@@ -35,6 +32,11 @@ updateStageDates();
         const data = getStages();
 
         dateInput.value = data[currentStage] || "";
+
+        // إعادة واجهة الذكرى لوضعها الطبيعي
+        memoryEditor.hidden = true;
+        choosePhotos.hidden = false;
+        chooseMemory.hidden = false;
 
         bottomSheet.classList.add("show");
         overlay.classList.add("show");
@@ -65,36 +67,22 @@ choosePhotos.addEventListener("click", () => {
 
 });
 
-closeSheet.addEventListener("click", closeBottomSheet);
-overlay.addEventListener("click", closeBottomSheet);
-
-function closeBottomSheet() {
-
-    bottomSheet.classList.remove("show");
-    overlay.classList.remove("show");
-
-}
-
+// فتح محرر الذكرى
 chooseMemory.addEventListener("click", () => {
 
-    document.getElementById("choosePhotos").hidden = true;
-    document.getElementById("chooseMemory").hidden = true;
+    choosePhotos.hidden = true;
+    chooseMemory.hidden = true;
 
     memoryEditor.hidden = false;
 
-    const memory = localStorage.getItem(currentStage + "_memory");
+    const memory =
+        localStorage.getItem(currentStage + "_memory");
 
-memoryInput.value = memory || "";
-
-let preview = memory || "لا توجد ذكرى";
-
-if (preview.length > 25) {
-    preview = preview.substring(0, 25) + "...";
-}
-
+    memoryInput.value = memory || "";
 
 });
 
+// حفظ الذكرى
 saveMemory.addEventListener("click", () => {
 
     localStorage.setItem(
@@ -104,7 +92,23 @@ saveMemory.addEventListener("click", () => {
 
     memoryEditor.hidden = true;
 
-    document.getElementById("choosePhotos").hidden = false;
-    document.getElementById("chooseMemory").hidden = false;
+    choosePhotos.hidden = false;
+    chooseMemory.hidden = false;
 
 });
+
+// إغلاق الـ Bottom Sheet
+closeSheet.addEventListener("click", closeBottomSheet);
+overlay.addEventListener("click", closeBottomSheet);
+
+function closeBottomSheet() {
+
+    bottomSheet.classList.remove("show");
+    overlay.classList.remove("show");
+
+    // إعادة الواجهة للوضع الطبيعي
+    memoryEditor.hidden = true;
+    choosePhotos.hidden = false;
+    chooseMemory.hidden = false;
+
+}

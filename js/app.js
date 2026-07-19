@@ -1,3 +1,4 @@
+alert("app.js اشتغل");
 const dateInput = document.getElementById("dateInput");
 
 let currentStage = "";

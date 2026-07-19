@@ -1,6 +1,13 @@
 const stagesList = document.getElementById("stagesList");
 const addStage = document.getElementById("addStage");
 const dateInput = document.getElementById("dateInput");
+
+let currentStage = null;
+
+const bottomSheet = document.getElementById("bottomSheet");
+const overlay = document.getElementById("overlay");
+const sheetTitle = document.getElementById("sheetTitle");
+const choosePhotos = document.getElementById("choosePhotos");
 // عرض المراحل المحفوظة
 loadStages();
 

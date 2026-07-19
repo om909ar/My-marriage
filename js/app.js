@@ -30,6 +30,16 @@ stages.forEach(stage => {
     stage.addEventListener("click", () => {
 
         currentStage = stage.id;
+        
+        const memory = localStorage.getItem(currentStage + "_memory");
+
+let preview = memory || "لا توجد ذكرى";
+
+if (preview.length > 25) {
+    preview = preview.substring(0, 25) + "...";
+}
+
+memoryPreview.textContent = preview;
 
         sheetTitle.textContent =
             stage.querySelector("span").textContent;

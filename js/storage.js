@@ -1,4 +1,4 @@
-const STORAGE_KEY = "myMarriageStages";
+const STORAGE_KEY = "myStages";
 
 function getStages() {
 
@@ -8,14 +8,7 @@ function getStages() {
         return JSON.parse(data);
     }
 
-    return {
-        engagement: "",
-        meeting: "",
-        contract: "",
-        shabka: "",
-        wedding: "",
-        honeymoon: ""
-    };
+    return [];
 
 }
 

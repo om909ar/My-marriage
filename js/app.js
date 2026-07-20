@@ -115,19 +115,3 @@ choosePhotos.addEventListener("click", () => {
     window.location.href = "photo.html";
 
 });
-
-deleteStage.addEventListener("click", () => {
-
-    if (currentStage === null) return;
-
-    const stages = getStages();
-
-    stages.splice(currentStage, 1);
-
-    saveStages(stages);
-
-    closeBottomSheet();
-
-    loadStages();
-
-});

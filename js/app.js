@@ -1,7 +1,6 @@
 const stagesList = document.getElementById("stagesList");
 const addStage = document.getElementById("addStage");
 const dateInput = document.getElementById("dateInput");
-const deleteStage = document.getElementById("deleteStage");
 
 let currentStage = null;
 

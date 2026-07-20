@@ -4,7 +4,7 @@ const noPhoto = document.getElementById("noPhoto");
 const savePhoto = document.getElementById("savePhoto");
 const photoTitle = document.getElementById("photoTitle");
 
-const currentStage = sessionStorage.getItem("currentStage");
+const currentStage = Number(sessionStorage.getItem("currentStage"));
 
 const stages = JSON.parse(localStorage.getItem("myStages")) || [];
 

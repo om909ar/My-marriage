@@ -58,7 +58,12 @@ stagePhoto.addEventListener("click", (e) => {
 
     if (!item.photo) return;
 
-    window.open(item.photo, "_blank");
+    const imageViewer = document.getElementById("imageViewer");
+    const viewerImage = document.getElementById("viewerImage");
+
+    viewerImage.src = item.photo;
+
+    imageViewer.classList.add("show");
 
 });
 

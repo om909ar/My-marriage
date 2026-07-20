@@ -50,6 +50,17 @@ function loadStages() {
             : "—"
     }</span>
 `;
+const stagePhoto = stage.querySelector(".stage-photo");
+
+stagePhoto.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+
+    if (!item.photo) return;
+
+    window.open(item.photo, "_blank");
+
+});
 
 stage.addEventListener("click", () => {
 

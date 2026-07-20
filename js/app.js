@@ -118,6 +118,18 @@ choosePhotos.addEventListener("click", () => {
 
 deleteStage.addEventListener("click", () => {
 
-    alert("زر الحذف يعمل");
+    if (currentStage === null) return;
+
+    if (!confirm("هل تريد حذف هذه المرحلة؟")) return;
+
+    const stages = getStages();
+
+    stages.splice(currentStage, 1);
+
+    saveStages(stages);
+
+    closeBottomSheet();
+
+    loadStages();
 
 });

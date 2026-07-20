@@ -115,3 +115,9 @@ choosePhotos.addEventListener("click", () => {
     window.location.href = "photo.html";
 
 });
+
+deleteStage.addEventListener("click", () => {
+
+    alert("زر الحذف يعمل");
+
+});

@@ -15,7 +15,7 @@ body{
 body{
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
     background:#FFF7F8;
-    color:#111;
+    color:#3A2E2E;
 }
 
 .app{
@@ -29,7 +29,7 @@ body{
 
 .marriage-card{
 
-    background:white;
+    background:#FFFFFF;
 
     border-radius:22px;
 
@@ -37,7 +37,7 @@ body{
 
     text-align:center;
 
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
+    box-shadow:0 8px 24px rgba(201,140,140,.12);
 
     margin-bottom:20px;
 
@@ -61,13 +61,13 @@ body{
 
 .stages{
 
-    background:white;
+    background:#FFFFFF;
 
     border-radius:22px;
 
     overflow:hidden;
 
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
+    box-shadow:0 8px 24px rgba(201,140,140,.12);
 
 }
 
@@ -85,7 +85,7 @@ body{
 
     cursor:pointer;
 
-    border-bottom:1px solid #ececec;
+    border-bottom:1px solid #F1E3E5;
 
 }
 
@@ -97,7 +97,7 @@ body{
 
 .stage:active{
 
-    background:#f5f5f5;
+    background:#FDF0F2;
 
 }
 
@@ -127,46 +127,6 @@ body{
 
 }
 
-@media (prefers-color-scheme: dark){
-
-body{
-
-background:#FFF7F8;
-
-color:#3A2E2E;
-
-}
-
-}
-
-.marriage-card,
-.stages{
-
-background:#FFFFFF;
-
-box-shadow:none;
-
-}
-
-.stage{
-
-border-color:#2d2d2d;
-
-}
-
-.stage:active{
-
-background:#2c2c2e;
-
-}
-
-#addStage{
-
-background:#C98C8C;
-
-color:white;
-
-}
 
 /* الخلفية */
 

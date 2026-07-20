@@ -361,3 +361,23 @@ color:white;
     padding: 20px;
 
 }
+
+.logo-card{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:24px;
+
+}
+
+#logo{
+
+    width:220px;
+
+    max-width:80%;
+
+}

@@ -2,6 +2,7 @@ const stagesList = document.getElementById("stagesList");
 const addStage = document.getElementById("addStage");
 const dateInput = document.getElementById("dateInput");
 
+
 let currentStage = null;
 
 const bottomSheet = document.getElementById("bottomSheet");

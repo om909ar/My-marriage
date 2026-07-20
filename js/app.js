@@ -67,13 +67,6 @@ stagePhoto.addEventListener("click", (e) => {
 
 });
 
-const imageViewer = document.getElementById("imageViewer");
-
-imageViewer.addEventListener("click", () => {
-
-    imageViewer.classList.remove("show");
-
-});
 
 stage.addEventListener("click", () => {
 
@@ -169,5 +162,16 @@ deleteStage.addEventListener("click", () => {
     closeBottomSheet();
 
     loadStages();
+
+});
+
+const imageViewer = document.getElementById("imageViewer");
+const viewerImage = document.getElementById("viewerImage");
+
+imageViewer.addEventListener("click", () => {
+
+    imageViewer.classList.remove("show");
+
+    viewerImage.src = "";
 
 });

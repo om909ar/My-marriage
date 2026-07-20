@@ -127,6 +127,8 @@ deleteStage.addEventListener("click", () => {
     stages.splice(currentStage, 1);
 
     saveStages(stages);
+    
+    currentStage = null;
 
     closeBottomSheet();
 

@@ -148,7 +148,7 @@ choosePhotos.addEventListener("click", () => {
 
     sessionStorage.setItem("currentStage", currentStage);
 
-    window.location.href = "photo.html";
+    window.location.replace("photo.html");
 
 });
 

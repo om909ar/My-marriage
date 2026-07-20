@@ -52,7 +52,7 @@ photoInput.addEventListener("change", () => {
 
 });
 
-// حفظ الصورة
+// حفظ // حفظ الصورة
 savePhoto.addEventListener("click", () => {
 
     if (!selectedImage) {
@@ -63,7 +63,9 @@ savePhoto.addEventListener("click", () => {
 
     }
 
-    localStorage.setItem(currentStage + "_photo", selectedImage);
+    stages[currentStage].photo = selectedImage;
+
+    localStorage.setItem("myStages", JSON.stringify(stages));
 
     alert("تم حفظ الصورة ✅");
 

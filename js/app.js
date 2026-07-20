@@ -32,7 +32,15 @@ function loadStages() {
 
         stage.innerHTML = `
     <div class="stage-left">
-        <div class="stage-photo">+</div>
+        <div class="stage-photo">
+
+    ${
+        item.photo
+        ? `<img src="${item.photo}" class="stage-photo-img">`
+        : "+"
+    }
+
+</div>
         <span>${item.name}</span>
     </div>
 

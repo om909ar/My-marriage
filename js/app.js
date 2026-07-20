@@ -31,7 +31,11 @@ function loadStages() {
         stage.dataset.index = index;
 
         stage.innerHTML = `
-    <span>${item.name}</span>
+    <div class="stage-left">
+        <div class="stage-photo">+</div>
+        <span>${item.name}</span>
+    </div>
+
     <span>${
         item.date
             ? item.date.split("-").reverse().join(" / ")

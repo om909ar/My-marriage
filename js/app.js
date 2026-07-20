@@ -67,6 +67,14 @@ stagePhoto.addEventListener("click", (e) => {
 
 });
 
+const imageViewer = document.getElementById("imageViewer");
+
+imageViewer.addEventListener("click", () => {
+
+    imageViewer.classList.remove("show");
+
+});
+
 stage.addEventListener("click", () => {
 
     currentStage = index;

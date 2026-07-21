@@ -2,6 +2,10 @@ const stagesList = document.getElementById("stagesList");
 const addStage = document.getElementById("addStage");
 const dateInput = document.getElementById("dateInput");
 const deleteStage = document.getElementById("deleteStage");
+const addStageModal = document.getElementById("addStageModal");
+const stageNameInput = document.getElementById("stageNameInput");
+const saveStage = document.getElementById("saveStage");
+const cancelStage = document.getElementById("cancelStage");
 
 let currentStage = null;
 
@@ -93,7 +97,23 @@ dateInput.value = item.date || "";
 
 addStage.addEventListener("click", () => {
 
-    const stageName = prompt("اكتب اسم المرحلة");
+    stageNameInput.value = "";
+
+    addStageModal.classList.add("show");
+
+    stageNameInput.focus();
+
+});
+
+cancelStage.addEventListener("click", () => {
+
+    addStageModal.classList.remove("show");
+
+});
+
+saveStage.addEventListener("click", () => {
+
+    const stageName = stageNameInput.value.trim();
 
     if (!stageName) return;
 
@@ -108,6 +128,8 @@ addStage.addEventListener("click", () => {
     saveStages(stages);
 
     loadStages();
+
+    addStageModal.classList.remove("show");
 
 });
 

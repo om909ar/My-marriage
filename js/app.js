@@ -1,199 +1,474 @@
-const stagesList = document.getElementById("stagesList");
-const addStage = document.getElementById("addStage");
-const dateInput = document.getElementById("dateInput");
-const deleteStage = document.getElementById("deleteStage");
-const addStageModal = document.getElementById("addStageModal");
-const stageNameInput = document.getElementById("stageNameInput");
-const saveStage = document.getElementById("saveStage");
-const cancelStage = document.getElementById("cancelStage");
+const stagesList =
+    document.getElementById("stagesList");
+
+const addStage =
+    document.getElementById("addStage");
+
+const dateInput =
+    document.getElementById("dateInput");
+
+const deleteStage =
+    document.getElementById("deleteStage");
+
+const addStageModal =
+    document.getElementById("addStageModal");
+
+const stageNameInput =
+    document.getElementById("stageNameInput");
+
+const saveStage =
+    document.getElementById("saveStage");
+
+const cancelStage =
+    document.getElementById("cancelStage");
+
+const bottomSheet =
+    document.getElementById("bottomSheet");
+
+const overlay =
+    document.getElementById("overlay");
+
+const sheetTitle =
+    document.getElementById("sheetTitle");
+
+const choosePhotos =
+    document.getElementById("choosePhotos");
+
+const closeSheet =
+    document.getElementById("closeSheet");
 
 let currentStage = null;
-
-const bottomSheet = document.getElementById("bottomSheet");
-const overlay = document.getElementById("overlay");
-const sheetTitle = document.getElementById("sheetTitle");
-const choosePhotos = document.getElementById("choosePhotos");
-// عرض المراحل المحفوظة
-loadStages();
 
 // =====================
 // تحميل المراحل
 // =====================
 
-function loadStages() {
+loadStages();
+
+async function loadStages() {
 
     stagesList.innerHTML = "";
 
     const stages = getStages();
 
-    stages.forEach((item, index) => {
+    for (
+        let index = 0;
+        index < stages.length;
+        index++
+    ) {
 
-        const stage = document.createElement("div");
+        const item = stages[index];
+
+        const stage =
+            document.createElement("div");
 
         stage.className = "stage";
 
         stage.dataset.index = index;
 
-        stage.innerHTML = `
-    <div class="stage-left">
-        <div class="stage-photo">
+        const stagePhoto =
+            document.createElement("div");
 
-    ${
-        item.photo
-        ? `<img src="${item.photo}" class="stage-photo-img">`
-        : "+"
+        stagePhoto.className =
+            "stage-photo";
+
+        const stageLeft =
+            document.createElement("div");
+
+        stageLeft.className =
+            "stage-left";
+
+        const name =
+            document.createElement("span");
+
+        name.textContent =
+            item.name;
+
+        stageLeft.appendChild(
+            stagePhoto
+        );
+
+        stageLeft.appendChild(
+            name
+        );
+
+        const date =
+            document.createElement("span");
+
+        date.textContent =
+            item.date
+                ? item.date
+                    .split("-")
+                    .reverse()
+                    .join(" / ")
+                : "—";
+
+        stage.appendChild(
+            stageLeft
+        );
+
+        stage.appendChild(
+            date
+        );
+
+        // =====================
+        // تحميل صورة المرحلة
+        // =====================
+
+        try {
+
+            const image =
+                await getStageImage(index);
+
+            if (image) {
+
+                const imageURL =
+                    URL.createObjectURL(image);
+
+                const img =
+                    document.createElement("img");
+
+                img.src = imageURL;
+
+                img.className =
+                    "stage-photo-img";
+
+                stagePhoto.appendChild(img);
+
+                stagePhoto.addEventListener(
+                    "click",
+                    function (e) {
+
+                        e.stopPropagation();
+
+                        const imageViewer =
+                            document.getElementById(
+                                "imageViewer"
+                            );
+
+                        const viewerImage =
+                            document.getElementById(
+                                "viewerImage"
+                            );
+
+                        viewerImage.src =
+                            imageURL;
+
+                        imageViewer.classList.add(
+                            "show"
+                        );
+                    }
+                );
+
+            } else {
+
+                stagePhoto.textContent =
+                    "+";
+            }
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في تحميل الصورة:",
+                error
+            );
+
+            stagePhoto.textContent =
+                "+";
+        }
+
+        // =====================
+        // الضغط على المرحلة
+        // =====================
+
+        stage.addEventListener(
+            "click",
+            function () {
+
+                currentStage =
+                    index;
+
+                dateInput.value =
+                    item.date || "";
+
+                sheetTitle.textContent =
+                    item.name;
+
+                bottomSheet.classList.add(
+                    "show"
+                );
+
+                overlay.classList.add(
+                    "show"
+                );
+            }
+        );
+
+        stagesList.appendChild(
+            stage
+        );
     }
-
-</div>
-        <span>${item.name}</span>
-    </div>
-
-    <span>${
-        item.date
-            ? item.date.split("-").reverse().join(" / ")
-            : "—"
-    }</span>
-`;
-const stagePhoto = stage.querySelector(".stage-photo");
-
-stagePhoto.addEventListener("click", (e) => {
-
-    e.stopPropagation();
-
-    if (!item.photo) return;
-
-    const imageViewer = document.getElementById("imageViewer");
-    const viewerImage = document.getElementById("viewerImage");
-
-    viewerImage.src = item.photo;
-
-    imageViewer.classList.add("show");
-
-});
-
-
-stage.addEventListener("click", () => {
-
-    currentStage = index;
-
-dateInput.value = item.date || "";
-
-    sheetTitle.textContent = item.name;
-
-    bottomSheet.classList.add("show");
-    overlay.classList.add("show");
-
-});
-
-        stagesList.appendChild(stage);
-
-    });
-
 }
 
 // =====================
 // إضافة مرحلة
 // =====================
 
-addStage.addEventListener("click", () => {
+addStage.addEventListener(
+    "click",
+    function () {
 
-    stageNameInput.value = "";
+        stageNameInput.value = "";
 
-    addStageModal.classList.add("show");
+        addStageModal.classList.add(
+            "show"
+        );
 
-    stageNameInput.focus();
+        stageNameInput.focus();
 
-});
+    }
+);
 
-cancelStage.addEventListener("click", () => {
+cancelStage.addEventListener(
+    "click",
+    function () {
 
-    addStageModal.classList.remove("show");
+        addStageModal.classList.remove(
+            "show"
+        );
 
-});
+    }
+);
 
-saveStage.addEventListener("click", () => {
+saveStage.addEventListener(
+    "click",
+    function () {
 
-    const stageName = stageNameInput.value.trim();
+        const stageName =
+            stageNameInput.value.trim();
 
-    if (!stageName) return;
+        if (!stageName) {
+            return;
+        }
 
-    const stages = getStages();
+        const stages =
+            getStages();
 
-    stages.push({
-        name: stageName,
-        date: "",
-        photo: ""
-    });
+        stages.push({
 
-    saveStages(stages);
+            name: stageName,
 
-    loadStages();
+            date: "",
 
-    addStageModal.classList.remove("show");
+            photo: false
 
-});
+        });
 
-dateInput.addEventListener("change", () => {
+        saveStages(stages);
 
-    const stages = getStages();
+        loadStages();
 
-    stages[currentStage].date = dateInput.value;
+        addStageModal.classList.remove(
+            "show"
+        );
 
-    saveStages(stages);
+    }
+);
 
-    loadStages();
+// =====================
+// التاريخ
+// =====================
 
-});
+dateInput.addEventListener(
+    "change",
+    function () {
 
-const closeSheet = document.getElementById("closeSheet");
+        const stages =
+            getStages();
 
-closeSheet.addEventListener("click", closeBottomSheet);
-overlay.addEventListener("click", closeBottomSheet);
+        stages[currentStage].date =
+            dateInput.value;
+
+        saveStages(stages);
+
+        loadStages();
+
+    }
+);
+
+// =====================
+// إغلاق النافذة
+// =====================
+
+closeSheet.addEventListener(
+    "click",
+    closeBottomSheet
+);
+
+overlay.addEventListener(
+    "click",
+    closeBottomSheet
+);
 
 function closeBottomSheet() {
 
-    bottomSheet.classList.remove("show");
-    overlay.classList.remove("show");
+    bottomSheet.classList.remove(
+        "show"
+    );
 
+    overlay.classList.remove(
+        "show"
+    );
 }
 
-choosePhotos.addEventListener("click", () => {
+// =====================
+// الصور
+// =====================
 
-    if (currentStage === null) return;
+choosePhotos.addEventListener(
+    "click",
+    function () {
 
-    sessionStorage.setItem("currentStage", currentStage);
+        if (currentStage === null) {
+            return;
+        }
 
-    window.location.replace("photo.html");
+        sessionStorage.setItem(
+            "currentStage",
+            currentStage
+        );
 
-});
+        window.location.replace(
+            "photo.html"
+        );
+    }
+);
 
-deleteStage.addEventListener("click", () => {
+// =====================
+// حذف المرحلة
+// =====================
 
-    if (currentStage === null) return;
+deleteStage.addEventListener(
+    "click",
+    async function () {
 
-    if (!confirm("هل تريد حذف هذه المرحلة؟")) return;
+        if (currentStage === null) {
+            return;
+        }
 
-    const stages = getStages();
+        if (
+            !confirm(
+                "هل تريد حذف هذه المرحلة؟"
+            )
+        ) {
+            return;
+        }
 
-    stages.splice(currentStage, 1);
+        const stages =
+            getStages();
 
-    saveStages(stages);
-    
-    currentStage = null;
+        // حذف صورة المرحلة من IndexedDB
+        try {
 
-    closeBottomSheet();
+            await deleteStageImage(
+                currentStage
+            );
 
-    loadStages();
+        } catch (error) {
 
-});
+            console.error(
+                "خطأ في حذف الصورة:",
+                error
+            );
+        }
 
-const imageViewer = document.getElementById("imageViewer");
-const viewerImage = document.getElementById("viewerImage");
+        stages.splice(
+            currentStage,
+            1
+        );
 
-imageViewer.addEventListener("click", () => {
+        /*
+         * مهم:
+         * بعد حذف مرحلة، أرقام الصور التي
+         * بعدها تتغير.
+         *
+         * لذلك نعيد ترتيب الصور في IndexedDB.
+         */
 
-    imageViewer.classList.remove("show");
+        try {
 
-    viewerImage.src = "";
+            for (
+                let i = currentStage;
+                i < stages.length;
+                i++
+            ) {
 
-});
+                const nextImage =
+                    await getStageImage(
+                        i + 1
+                    );
+
+                if (nextImage) {
+
+                    await saveStageImage(
+                        i,
+                        nextImage
+                    );
+
+                } else {
+
+                    await deleteStageImage(
+                        i
+                    );
+                }
+            }
+
+            await deleteStageImage(
+                stages.length
+            );
+
+        } catch (error) {
+
+            console.error(
+                "خطأ في ترتيب الصور:",
+                error
+            );
+        }
+
+        saveStages(stages);
+
+        currentStage = null;
+
+        closeBottomSheet();
+
+        loadStages();
+
+    }
+);
+
+// =====================
+// عارض الصور
+// =====================
+
+const imageViewer =
+    document.getElementById(
+        "imageViewer"
+    );
+
+const viewerImage =
+    document.getElementById(
+        "viewerImage"
+    );
+
+imageViewer.addEventListener(
+    "click",
+    function () {
+
+        imageViewer.classList.remove(
+            "show"
+        );
+
+        viewerImage.src = "";
+
+    }
+);

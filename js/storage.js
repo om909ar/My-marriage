@@ -1,15 +1,36 @@
 const STORAGE_KEY = "myStages";
+
 const DB_NAME = "ZawajiDB";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const IMAGE_STORE = "images";
 
 // =====================
-// المراحل - localStorage
+// إنشاء ID ثابت للمرحلة
+// =====================
+
+function createStageId() {
+
+    if (
+        typeof crypto !== "undefined" &&
+        crypto.randomUUID
+    ) {
+        return crypto.randomUUID();
+    }
+
+    return (
+        Date.now().toString(36) +
+        Math.random().toString(36).substring(2)
+    );
+}
+
+// =====================
+// المراحل
 // =====================
 
 function getStages() {
 
-    const data = localStorage.getItem(STORAGE_KEY);
+    const data =
+        localStorage.getItem(STORAGE_KEY);
 
     if (data) {
         return JSON.parse(data);
@@ -34,32 +55,45 @@ function openImageDB() {
 
     return new Promise((resolve, reject) => {
 
-        const request = indexedDB.open(
-            DB_NAME,
-            DB_VERSION
-        );
+        const request =
+            indexedDB.open(
+                DB_NAME,
+                DB_VERSION
+            );
 
-        request.onupgradeneeded = function (event) {
+        request.onupgradeneeded =
+            function (event) {
 
-            const db = event.target.result;
+                const db =
+                    event.target.result;
 
-            if (!db.objectStoreNames.contains(IMAGE_STORE)) {
+                if (
+                    !db.objectStoreNames.contains(
+                        IMAGE_STORE
+                    )
+                ) {
 
-                db.createObjectStore(
-                    IMAGE_STORE
+                    db.createObjectStore(
+                        IMAGE_STORE
+                    );
+                }
+            };
+
+        request.onsuccess =
+            function () {
+
+                resolve(
+                    request.result
                 );
-            }
-        };
+            };
 
-        request.onsuccess = function () {
+        request.onerror =
+            function () {
 
-            resolve(request.result);
-        };
-
-        request.onerror = function () {
-
-            reject(request.error);
-        };
+                reject(
+                    request.error
+                );
+            };
     });
 }
 
@@ -67,131 +101,171 @@ function openImageDB() {
 // حفظ الصورة الأصلية
 // =====================
 
-function saveStageImage(stageIndex, file) {
+function saveStageImage(
+    stageId,
+    file
+) {
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise(
+        async (resolve, reject) => {
 
-        try {
+            try {
 
-            const db = await openImageDB();
+                const db =
+                    await openImageDB();
 
-            const transaction = db.transaction(
-                IMAGE_STORE,
-                "readwrite"
-            );
+                const transaction =
+                    db.transaction(
+                        IMAGE_STORE,
+                        "readwrite"
+                    );
 
-            const store =
-                transaction.objectStore(IMAGE_STORE);
+                const store =
+                    transaction.objectStore(
+                        IMAGE_STORE
+                    );
 
-            store.put(
-                file,
-                String(stageIndex)
-            );
+                store.put(
+                    file,
+                    String(stageId)
+                );
 
-            transaction.oncomplete = function () {
+                transaction.oncomplete =
+                    function () {
 
-                db.close();
+                        db.close();
 
-                resolve();
-            };
+                        resolve();
+                    };
 
-            transaction.onerror = function () {
+                transaction.onerror =
+                    function () {
 
-                db.close();
+                        db.close();
 
-                reject(transaction.error);
-            };
+                        reject(
+                            transaction.error
+                        );
+                    };
 
-        } catch (error) {
+            } catch (error) {
 
-            reject(error);
+                reject(error);
+            }
         }
-    });
+    );
 }
 
 // =====================
-// جلب الصورة الأصلية
+// جلب صورة المرحلة
 // =====================
 
-function getStageImage(stageIndex) {
+function getStageImage(stageId) {
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise(
+        async (resolve, reject) => {
 
-        try {
+            try {
 
-            const db = await openImageDB();
+                const db =
+                    await openImageDB();
 
-            const transaction = db.transaction(
-                IMAGE_STORE,
-                "readonly"
-            );
+                const transaction =
+                    db.transaction(
+                        IMAGE_STORE,
+                        "readonly"
+                    );
 
-            const store =
-                transaction.objectStore(IMAGE_STORE);
+                const store =
+                    transaction.objectStore(
+                        IMAGE_STORE
+                    );
 
-            const request =
-                store.get(String(stageIndex));
+                const request =
+                    store.get(
+                        String(stageId)
+                    );
 
-            request.onsuccess = function () {
+                request.onsuccess =
+                    function () {
 
-                db.close();
+                        db.close();
 
-                resolve(request.result || null);
-            };
+                        resolve(
+                            request.result ||
+                            null
+                        );
+                    };
 
-            request.onerror = function () {
+                request.onerror =
+                    function () {
 
-                db.close();
+                        db.close();
 
-                reject(request.error);
-            };
+                        reject(
+                            request.error
+                        );
+                    };
 
-        } catch (error) {
+            } catch (error) {
 
-            reject(error);
+                reject(error);
+            }
         }
-    });
+    );
 }
 
 // =====================
 // حذف صورة المرحلة
 // =====================
 
-function deleteStageImage(stageIndex) {
+function deleteStageImage(stageId) {
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise(
+        async (resolve, reject) => {
 
-        try {
+            try {
 
-            const db = await openImageDB();
+                const db =
+                    await openImageDB();
 
-            const transaction = db.transaction(
-                IMAGE_STORE,
-                "readwrite"
-            );
+                const transaction =
+                    db.transaction(
+                        IMAGE_STORE,
+                        "readwrite"
+                    );
 
-            const store =
-                transaction.objectStore(IMAGE_STORE);
+                const store =
+                    transaction.objectStore(
+                        IMAGE_STORE
+                    );
 
-            store.delete(String(stageIndex));
+                store.delete(
+                    String(stageId)
+                );
 
-            transaction.oncomplete = function () {
+                transaction.oncomplete =
+                    function () {
 
-                db.close();
+                        db.close();
 
-                resolve();
-            };
+                        resolve();
+                    };
 
-            transaction.onerror = function () {
+                transaction.onerror =
+                    function () {
 
-                db.close();
+                        db.close();
 
-                reject(transaction.error);
-            };
+                        reject(
+                            transaction.error
+                        );
+                    };
 
-        } catch (error) {
+            } catch (error) {
 
-            reject(error);
+                reject(error);
+            }
         }
-    });
+    );
 }

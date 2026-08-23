@@ -40,6 +40,44 @@ const closeSheet =
 let currentStage = null;
 
 // =====================
+// تجهيز المراحل القديمة
+// =====================
+
+function prepareStages() {
+
+    const stages = getStages();
+
+    let changed = false;
+
+    stages.forEach(stage => {
+
+        if (!stage.id) {
+
+            stage.id =
+                createStageId();
+
+            changed = true;
+        }
+
+        if (
+            typeof stage.photo ===
+            "undefined"
+        ) {
+
+            stage.photo = false;
+
+            changed = true;
+        }
+    });
+
+    if (changed) {
+        saveStages(stages);
+    }
+
+    return stages;
+}
+
+// =====================
 // تحميل المراحل
 // =====================
 
@@ -49,7 +87,8 @@ async function loadStages() {
 
     stagesList.innerHTML = "";
 
-    const stages = getStages();
+    const stages =
+        prepareStages();
 
     for (
         let index = 0;
@@ -57,26 +96,29 @@ async function loadStages() {
         index++
     ) {
 
-        const item = stages[index];
+        const item =
+            stages[index];
 
         const stage =
             document.createElement("div");
 
-        stage.className = "stage";
+        stage.className =
+            "stage";
 
-        stage.dataset.index = index;
-
-        const stagePhoto =
-            document.createElement("div");
-
-        stagePhoto.className =
-            "stage-photo";
+        stage.dataset.index =
+            index;
 
         const stageLeft =
             document.createElement("div");
 
         stageLeft.className =
             "stage-left";
+
+        const stagePhoto =
+            document.createElement("div");
+
+        stagePhoto.className =
+            "stage-photo";
 
         const name =
             document.createElement("span");
@@ -118,22 +160,31 @@ async function loadStages() {
         try {
 
             const image =
-                await getStageImage(index);
+                await getStageImage(
+                    item.id
+                );
 
             if (image) {
 
                 const imageURL =
-                    URL.createObjectURL(image);
+                    URL.createObjectURL(
+                        image
+                    );
 
                 const img =
-                    document.createElement("img");
+                    document.createElement(
+                        "img"
+                    );
 
-                img.src = imageURL;
+                img.src =
+                    imageURL;
 
                 img.className =
                     "stage-photo-img";
 
-                stagePhoto.appendChild(img);
+                stagePhoto.appendChild(
+                    img
+                );
 
                 stagePhoto.addEventListener(
                     "click",
@@ -225,7 +276,6 @@ addStage.addEventListener(
         );
 
         stageNameInput.focus();
-
     }
 );
 
@@ -236,7 +286,6 @@ cancelStage.addEventListener(
         addStageModal.classList.remove(
             "show"
         );
-
     }
 );
 
@@ -256,12 +305,17 @@ saveStage.addEventListener(
 
         stages.push({
 
-            name: stageName,
+            id:
+                createStageId(),
 
-            date: "",
+            name:
+                stageName,
 
-            photo: false
+            date:
+                "",
 
+            photo:
+                false
         });
 
         saveStages(stages);
@@ -271,7 +325,6 @@ saveStage.addEventListener(
         addStageModal.classList.remove(
             "show"
         );
-
     }
 );
 
@@ -286,13 +339,19 @@ dateInput.addEventListener(
         const stages =
             getStages();
 
+        if (
+            currentStage === null ||
+            !stages[currentStage]
+        ) {
+            return;
+        }
+
         stages[currentStage].date =
             dateInput.value;
 
         saveStages(stages);
 
         loadStages();
-
     }
 );
 
@@ -322,7 +381,7 @@ function closeBottomSheet() {
 }
 
 // =====================
-// الصور
+// فتح الصور
 // =====================
 
 choosePhotos.addEventListener(
@@ -333,9 +392,17 @@ choosePhotos.addEventListener(
             return;
         }
 
+        const stages =
+            getStages();
+
+        if (!stages[currentStage]) {
+            return;
+        }
+
+        // نحفظ ID المرحلة وليس رقمها
         sessionStorage.setItem(
-            "currentStage",
-            currentStage
+            "currentStageId",
+            stages[currentStage].id
         );
 
         window.location.replace(
@@ -356,6 +423,16 @@ deleteStage.addEventListener(
             return;
         }
 
+        const stages =
+            getStages();
+
+        const stage =
+            stages[currentStage];
+
+        if (!stage) {
+            return;
+        }
+
         if (
             !confirm(
                 "هل تريد حذف هذه المرحلة؟"
@@ -364,14 +441,11 @@ deleteStage.addEventListener(
             return;
         }
 
-        const stages =
-            getStages();
-
-        // حذف صورة المرحلة من IndexedDB
         try {
 
+            // حذف صورة هذه المرحلة فقط
             await deleteStageImage(
-                currentStage
+                stage.id
             );
 
         } catch (error) {
@@ -382,67 +456,22 @@ deleteStage.addEventListener(
             );
         }
 
+        // حذف المرحلة فقط
         stages.splice(
             currentStage,
             1
         );
 
-        /*
-         * مهم:
-         * بعد حذف مرحلة، أرقام الصور التي
-         * بعدها تتغير.
-         *
-         * لذلك نعيد ترتيب الصور في IndexedDB.
-         */
+        saveStages(
+            stages
+        );
 
-        try {
-
-            for (
-                let i = currentStage;
-                i < stages.length;
-                i++
-            ) {
-
-                const nextImage =
-                    await getStageImage(
-                        i + 1
-                    );
-
-                if (nextImage) {
-
-                    await saveStageImage(
-                        i,
-                        nextImage
-                    );
-
-                } else {
-
-                    await deleteStageImage(
-                        i
-                    );
-                }
-            }
-
-            await deleteStageImage(
-                stages.length
-            );
-
-        } catch (error) {
-
-            console.error(
-                "خطأ في ترتيب الصور:",
-                error
-            );
-        }
-
-        saveStages(stages);
-
-        currentStage = null;
+        currentStage =
+            null;
 
         closeBottomSheet();
 
         loadStages();
-
     }
 );
 
@@ -469,6 +498,5 @@ imageViewer.addEventListener(
         );
 
         viewerImage.src = "";
-
     }
 );

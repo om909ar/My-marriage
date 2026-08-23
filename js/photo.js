@@ -1,83 +1,123 @@
 const photoInput =
-    document.getElementById("photoInput");
+    document.getElementById(
+        "photoInput"
+    );
 
 const photoPreview =
-    document.getElementById("photoPreview");
+    document.getElementById(
+        "photoPreview"
+    );
 
 const noPhoto =
-    document.getElementById("noPhoto");
+    document.getElementById(
+        "noPhoto"
+    );
 
 const savePhoto =
-    document.getElementById("savePhoto");
+    document.getElementById(
+        "savePhoto"
+    );
 
 const photoTitle =
-    document.getElementById("photoTitle");
+    document.getElementById(
+        "photoTitle"
+    );
 
 const backButton =
-    document.getElementById("backButton");
+    document.getElementById(
+        "backButton"
+    );
 
-const currentStage =
-    Number(sessionStorage.getItem("currentStage"));
+// =====================
+// ID المرحلة
+// =====================
+
+const currentStageId =
+    sessionStorage.getItem(
+        "currentStageId"
+    );
 
 const stages =
     getStages();
 
-let selectedFile = null;
+const currentStage =
+    stages.find(
+        stage =>
+            stage.id ===
+            currentStageId
+    );
+
+let selectedFile =
+    null;
 
 // =====================
 // التأكد من المرحلة
 // =====================
 
-if (
-    isNaN(currentStage) ||
-    !stages[currentStage]
-) {
+if (!currentStage) {
 
-    alert("حدث خطأ في تحديد المرحلة");
+    alert(
+        "حدث خطأ في تحديد المرحلة"
+    );
 
-    window.location.replace("index.html");
+    window.location.replace(
+        "index.html"
+    );
 }
 
 // =====================
-// عنوان الصفحة
+// العنوان
 // =====================
 
 photoTitle.textContent =
-    stages[currentStage].name + " - الصورة";
+    currentStage.name +
+    " - الصورة";
 
 // =====================
-// عرض الصورة
+// تحميل الصورة المحفوظة
 // =====================
 
 async function loadPhoto() {
 
     try {
 
-        const file =
-            await getStageImage(currentStage);
+        const image =
+            await getStageImage(
+                currentStage.id
+            );
 
-        if (!file) {
+        if (!image) {
 
-            noPhoto.hidden = false;
-            photoPreview.hidden = true;
+            photoPreview.hidden =
+                true;
+
+            noPhoto.hidden =
+                false;
 
             return;
         }
 
         const imageURL =
-            URL.createObjectURL(file);
+            URL.createObjectURL(
+                image
+            );
 
-        photoPreview.src = imageURL;
+        photoPreview.src =
+            imageURL;
 
-        photoPreview.hidden = false;
-        noPhoto.hidden = true;
+        photoPreview.hidden =
+            false;
+
+        noPhoto.hidden =
+            true;
 
     } catch (error) {
 
         console.error(error);
 
-        alert("تعذر تحميل الصورة");
-
+        alert(
+            "تعذر تحميل الصورة"
+        );
     }
 }
 
@@ -98,27 +138,39 @@ photoInput.addEventListener(
             return;
         }
 
-        if (!file.type.startsWith("image/")) {
+        if (
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
 
-            alert("الملف المختار ليس صورة");
+            alert(
+                "الملف المختار ليس صورة"
+            );
 
-            photoInput.value = "";
+            photoInput.value =
+                "";
 
             return;
         }
 
-        // حفظ الملف الأصلي كما هو
-        selectedFile = file;
+        // الصورة الأصلية كما هي
+        selectedFile =
+            file;
 
-        // عرض معاينة بدون تعديل الصورة
         const previewURL =
-            URL.createObjectURL(file);
+            URL.createObjectURL(
+                file
+            );
 
-        photoPreview.src = previewURL;
+        photoPreview.src =
+            previewURL;
 
-        photoPreview.hidden = false;
-        noPhoto.hidden = true;
+        photoPreview.hidden =
+            false;
 
+        noPhoto.hidden =
+            true;
     }
 );
 
@@ -132,63 +184,88 @@ savePhoto.addEventListener(
 
         if (!selectedFile) {
 
-            // إذا لم يختار صورة جديدة
-            // نتأكد أن هناك صورة محفوظة أصلًا
-
             const existingImage =
-                await getStageImage(currentStage);
+                await getStageImage(
+                    currentStage.id
+                );
 
             if (!existingImage) {
 
-                alert("اختر صورة أولاً");
+                alert(
+                    "اختر صورة أولاً"
+                );
 
                 return;
             }
 
-            alert("الصورة محفوظة مسبقًا ✅");
+            alert(
+                "الصورة محفوظة مسبقًا ✅"
+            );
 
             return;
         }
 
         try {
 
-            savePhoto.disabled = true;
+            savePhoto.disabled =
+                true;
 
             savePhoto.textContent =
                 "جاري الحفظ...";
 
-            // تخزين الملف الأصلي 100%
+            // حفظ الملف الأصلي
             await saveStageImage(
-                currentStage,
+                currentStage.id,
                 selectedFile
             );
 
-            // تحديث بيانات المرحلة
-            stages[currentStage].photo = true;
+            // تحديث حالة وجود الصورة
+            const updatedStages =
+                getStages();
 
-            saveStages(stages);
+            const stage =
+                updatedStages.find(
+                    item =>
+                        item.id ===
+                        currentStage.id
+                );
 
-            alert("تم حفظ الصورة الأصلية ✅");
+            if (stage) {
 
-            selectedFile = null;
+                stage.photo =
+                    true;
+
+                saveStages(
+                    updatedStages
+                );
+            }
+
+            selectedFile =
+                null;
 
             savePhoto.textContent =
                 "حفظ الصورة";
 
-            savePhoto.disabled = false;
+            savePhoto.disabled =
+                false;
+
+            alert(
+                "تم حفظ الصورة الأصلية ✅"
+            );
 
         } catch (error) {
 
             console.error(error);
 
-            alert(
-                "تعذر حفظ الصورة"
-            );
-
             savePhoto.textContent =
                 "حفظ الصورة";
 
-            savePhoto.disabled = false;
+            savePhoto.disabled =
+                false;
+
+            alert(
+                "تعذر حفظ الصورة"
+            );
         }
     }
 );
@@ -204,7 +281,6 @@ backButton.addEventListener(
         window.location.replace(
             "index.html"
         );
-
     }
 );
 
@@ -219,6 +295,5 @@ photoPreview.addEventListener(
         photoPreview.classList.toggle(
             "fullscreen"
         );
-
     }
 );

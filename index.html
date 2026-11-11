@@ -1,124 +1,90 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💍 زواجي</title>
 
-<title>💍 زواجي</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
 
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
-
-<meta name="theme-color" content="#ffffff">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="زواجي">
-
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="زواجي">
 </head>
-
 <body>
+    <div class="app stages-page">
+        <!-- بطاقة مدة الزواج -->
+        <section class="logo-card">
+            <img src="logo.PNG" alt="بدايتنا" id="logo">
+        </section>
 
-<div class="app">
+        <!-- المراحل -->
+        <section class="stages" id="stagesList"></section>
 
-    <!-- بطاقة مدة الزواج -->
+        <!-- إضافة مرحلة -->
+        <button id="addStage">
+            ➕ إضافة مرحلة
+        </button>
 
-    <section class="logo-card">
+        <div id="addStageModal">
+            <div class="modal-box">
+                <h3>إضافة مرحلة</h3>
 
-    <img src="logo.PNG" alt="بدايتنا" id="logo">
+                <input
+                    type="text"
+                    id="stageNameInput"
+                    placeholder="اكتب اسم المرحلة">
 
-</section>
-
-    <!-- المراحل -->
-
-    <section class="stages" id="stagesList">
-
-</section>
-
-    <!-- إضافة مرحلة -->
-
-    <button id="addStage">
-        ➕ إضافة مرحلة
-    </button>
-
-<div id="addStageModal">
-
-    <div class="modal-box">
-
-        <h3>إضافة مرحلة</h3>
-
-        <input
-            type="text"
-            id="stageNameInput"
-            placeholder="اكتب اسم المرحلة">
-
-        <div class="modal-buttons">
-
-            <button id="cancelStage">إلغاء</button>
-
-            <button id="saveStage">حفظ</button>
-
+                <div class="modal-buttons">
+                    <button id="cancelStage">إلغاء</button>
+                    <button id="saveStage">حفظ</button>
+                </div>
+            </div>
         </div>
-
     </div>
 
-</div>
+    <!-- الخلفية -->
+    <div id="overlay"></div>
 
-</div>
+    <!-- نافذة اختيار التاريخ -->
+    <!-- Bottom Sheet -->
+    <div id="bottomSheet">
+        <div class="sheet-handle"></div>
 
-<!-- الخلفية -->
+        <h3 id="sheetTitle">
+            💍 الخطبة
+        </h3>
 
-<div id="overlay"></div>
+        <div class="sheet-option">
+            <label for="dateInput">📅 التاريخ</label>
+            <input type="date" id="dateInput">
+        </div>
 
-<!-- نافذة اختيار التاريخ -->
+        <div class="sheet-option" id="choosePhotos">
+            🖼️ الصورة
+        </div>
 
-<!-- Bottom Sheet -->
+        <div class="sheet-option" id="deleteStage">
+            🗑️ حذف المرحلة
+        </div>
 
-<div id="bottomSheet">
+        <button id="closeSheet">
+            إلغاء
+        </button>
+    </div>
 
-    <div class="sheet-handle"></div>
+    <div id="imageViewer">
+        <button id="closeViewer">✕</button>
+        <img id="viewerImage" src="">
+    </div>
 
-    <h3 id="sheetTitle">
-        💍 الخطبة
-    </h3>
-
-    <div class="sheet-option">
-
-    <label for="dateInput">📅 التاريخ</label>
-
-    <input type="date" id="dateInput">
-
-</div>
-
-    <div class="sheet-option" id="choosePhotos">
-    🖼️ الصورة
-</div>
-
-<div class="sheet-option" id="deleteStage">
-    🗑️ حذف المرحلة
-</div>
-
-    <button id="closeSheet">
-        إلغاء
-    </button>
-
-</div>
-<div id="imageViewer">
-
-    <button id="closeViewer">✕</button>
-
-    <img id="viewerImage" src="">
-
-</div>
-
-<script src="js/storage.js"></script>
-<script src="js/dates.js"></script>
-<script src="js/stages.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/app.js"></script>
-
+    <script src="js/storage.js"></script>
+    <script src="js/dates.js"></script>
+    <script src="js/stages.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
 </body>
-
 </html>
